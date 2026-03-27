@@ -1,0 +1,11 @@
+﻿C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\ServiceContainer.cs(35,52): error CS1503: Argument 1: cannot convert from 'MonitoringBridge.Server.DynamicKnowledgeLibrary' to 'MonitoringBridge.Server.Services.DynamicKnowledgeLibrary' [C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\CSharpServer.csproj]
+C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\StaticFileServer.cs(114,17): error CS0103: The name 'NativeClipboard' does not exist in the current context [C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\CSharpServer.csproj]
+C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\StaticFileServer.cs(149,17): error CS0103: The name 'NativeClipboard' does not exist in the current context [C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\CSharpServer.csproj]
+C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\Program.cs(115,35): error CS0246: The type or namespace name 'Process' could not be found (are you missing a using directive or an assembly reference?) [C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\CSharpServer.csproj]
+C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\Program.cs(132,66): error CS0103: The name 'Process' does not exist in the current context [C:\YOON\CSrepos\NewEventMap\MonitoringBridge\CSharpServer\CSharpServer.csproj]
+
+Build FAILED.
+    8 Warning(s)
+    5 Error(s)
+
+Time Elapsed 00:00:01.60

@@ -1,0 +1,122 @@
+/**
+ * 🌌 Kuzmo Design System v38.0 (Deep Universe)
+ * ===========================================
+ * Futuristic, Glassmorphic, and Highly Contrastive.
+ */
+
+:root {
+  /* 🔋 Energy Colors (Neon-Focus) */
+  --p-neon: #9d50bb;
+  --p-glow: rgba(157, 80, 187, 0.4);
+  --s-neon: #6e48aa;
+  --a-cyan: #00e5ff;
+  --a-blue: #4facfe;
+
+  /* 🌌 Neutrals (Dark Space) */
+  --bg-space: #050508;
+  --bg-planet: #0a0b10;
+  --bg-cloud: rgba(18, 19, 28, 0.7);
+  --glass-stroke: rgba(255, 255, 255, 0.1);
+  --text-photon: #f0f0f5;
+  --text-nebula: rgba(240, 240, 245, 0.6);
+
+  /* 🚦 Logic Colors */
+  --ok: #00ff88;
+  --err: #ff4b2b;
+  --warn: #ffb000;
+
+  /* 📏 Geometry */
+  --br-vortex: 24px;
+  --br-nebula: 16px;
+  --br-atom: 8px;
+  --vortex-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 🧊 Warp Core (Glassmorphism) */
+.glass {
+  background: var(--bg-cloud);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-stroke);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* 💠 Marker Vortex Logic */
+.kzm-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px var(--p-glow));
+}
+
+.marker-core {
+  width: 14px;
+  height: 14px;
+  background: var(--p-neon);
+  border-radius: 50%;
+  border: 2px solid white;
+  z-index: 2;
+}
+
+.marker-pulse-ring {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--p-neon);
+  border-radius: 50%;
+  animation: pulse-vortex 2s infinite ease-out;
+  z-index: 1;
+}
+
+@keyframes pulse-vortex {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* ✍️ Typography */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-photon);
+  background: var(--bg-space);
+  margin: 0;
+  overflow: hidden;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+/* 🔍 Navigation Vortex */
+.nav-vortex {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  height: 56px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 100;
+  border-radius: var(--br-vortex);
+}
+
+.k-logo {
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--p-neon);
+  text-shadow: 0 0 10px var(--p-glow);
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--glass-stroke);
+  padding-left: 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}

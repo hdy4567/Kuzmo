@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  kuzmo-mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: kzm_quantum_mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Kuzmo!StrongP@ss2026"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-U", "sa", "-P", "Kuzmo!StrongP@ss2026", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kuzmo-oracle:
+    image: gvenzl/oracle-free:latest
+    container_name: kzm_quantum_oracle
+    environment:
+      ORACLE_PASSWORD: "Kuzmo!Oracle2026"
+      APP_USER: kuzmo_admin
+      APP_PASSWORD: "Kuzmo!Oracle2026"
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mssql-data:
+  oracle-data:

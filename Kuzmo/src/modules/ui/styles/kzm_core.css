@@ -1,0 +1,162 @@
+/* 🎨 Kuzmo Premium Core Styles (v5.0 - Atomized) */
+
+:root {
+  --kzm-primary: #8e2de2;
+  --kzm-primary-glow: rgba(142, 45, 226, 0.4);
+  --kzm-accent: #00e5ff;
+  --accent-purple: #9d50bb;
+  --accent-glow: rgba(157, 80, 255, 0.35);
+  --glass-bg: rgba(15, 15, 20, 0.85);
+  --glass-blur: blur(34px);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --surface: #0a0a0c;
+  --surface-light: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.7);
+  --shadow-luxe: 0 24px 64px rgba(0, 0, 0, 0.8);
+  --transition-luxe: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; font-family: 'Outfit', sans-serif; user-select: none; -webkit-user-select: none; }
+input, textarea, [contenteditable="true"] { user-select: text !important; -webkit-user-select: text !important; }
+body, html { margin: 0; padding: 0; background: #000; color: var(--text); overflow: hidden; }
+
+/* 🗺️ Map Container & Markers */
+#map-container {
+  width: 100vw; height: 100vh; position: fixed; z-index: 1;
+}
+
+.kzm-marker-icon {
+  width: 58px; height: 58px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  display: flex; align-items: center; justify-content: center;
+  background-size: cover; background-position: center;
+  transition: transform 0.2s ease-out; background-color: var(--surface);
+}
+
+.kzm-marker-icon:hover { transform: scale(1.15) rotate(5deg); border-color: var(--accent-purple); box-shadow: 0 0 20px var(--accent-glow); }
+
+.kzm-marker-icon.selected {
+  outline: 3px solid var(--accent-purple); outline-offset: 6px;
+  filter: drop-shadow(0 0 15px var(--accent-purple));
+  transform: scale(1.1) translateY(-10px);
+  animation: markerPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes markerPulse {
+  0%, 100% { outline-offset: 4px; }
+  50% { outline-offset: 8px; filter: drop-shadow(0 0 25px var(--accent-purple)); }
+}
+
+.custom-cluster {
+  background: radial-gradient(circle, rgba(157, 80, 255, 0.8) 0%, rgba(157, 80, 255, 0.2) 70%);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 900; font-size: 16px; border: 2px solid white;
+  box-shadow: 0 0 20px rgba(157, 80, 255, 0.6);
+}
+
+/* 🧭 Global Navigator Elements */
+.top-panel-container {
+  position: fixed; top: 28px; left: 50%; transform: translateX(-50%);
+  width: 92%; max-width: 720px; z-index: 2000;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.tier-1 {
+  height: 68px; border-radius: 34px; display: flex; align-items: center; padding: 0 24px; gap: 16px;
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-light);
+}
+
+.search-input { flex: 1; background: transparent; border: none; color: #fff; font-size: 17px; outline: none; }
+
+.record-badge {
+    background: var(--kzm-primary); padding: 4px 12px; border-radius: 12px; font-weight: 900; font-size: 12px;
+    box-shadow: 0 4px 12px var(--kzm-primary-glow);
+}
+
+.tier-2 {
+    display: flex; gap: 8px; background: rgba(0,0,0,0.4); backdrop-filter: blur(14px); padding: 4px; border-radius: 26px; align-self: center; border: 1px solid var(--border-light);
+}
+
+.cat-tab { padding: 10px 24px; border-radius: 20px; font-size: 11px; font-weight: 800; cursor: pointer; opacity: 0.6; transition: 0.3s; }
+.cat-tab.active { background: var(--kzm-primary); opacity: 1; box-shadow: 0 4px 15px var(--kzm-primary-glow); }
+
+.tier-3 { 
+    display: flex; gap: 10px; overflow-x: auto; padding: 10px 40px; scrollbar-width: none; 
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); 
+}
+
+.tag-chip { 
+    padding: 8px 18px; border-radius: 20px; background: var(--surface-light); 
+    border: 1px solid var(--border-light); font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.3s; white-space: nowrap; 
+}
+.tag-chip:hover { border-color: var(--kzm-accent); background: rgba(0, 229, 255, 0.1); }
+.tag-chip.active { background: var(--kzm-accent); color: #000; }
+
+/* 🔘 Premium Button System (v1.5) */
+.kzm-btn {
+  background: var(--kzm-primary);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.kzm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--kzm-primary-glow);
+  filter: brightness(1.1);
+}
+
+.kzm-btn:active { transform: scale(0.96); }
+
+.kzm-btn.small { padding: 8px 16px; font-size: 11px; border-radius: 10px; }
+.kzm-btn.large { padding: 18px 36px; font-size: 15px; border-radius: 18px; }
+
+.kzm-btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  border: 1px solid var(--border-light);
+}
+
+.kzm-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: var(--kzm-accent);
+}
+
+.kzm-btn-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 0;
+  background: var(--kzm-primary);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.kzm-btn-circle.small { width: 34px; height: 34px; font-size: 12px; }
+.kzm-btn-circle:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 20px var(--kzm-primary-glow); }
+
+/* 💎 SNS Tags */
+.sns-tag {
+    padding: 6px 14px; background: rgba(139, 94, 60, 0.1); border: 1px solid rgba(139, 94, 60, 0.2);
+    border-radius: 20px; font-size: 11px; font-weight: 700; color: var(--kzm-accent);
+}

@@ -1,0 +1,366 @@
+/* Detail Sheet & Overlay UI Styles */
+.overlay-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2000;
+  border-radius: 32px 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.8);
+}
+
+.overlay-panel.active {
+  transform: translateY(0);
+}
+
+#detail-sheet {
+  height: 45vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.detail-container {
+  display: flex;
+  height: calc(100% - 72px);
+  width: 100%;
+}
+
+.detail-visual {
+  flex: 4;
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-info {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 24px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--primary);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(139, 94, 60, 0.3);
+}
+
+.summary-input {
+  width: 100%;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  min-height: 120px;
+  transition: var(--transition-luxe);
+}
+
+.summary-input:focus {
+  border-color: var(--primary-glow);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 20px rgba(210, 180, 140, 0.1);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border-color: var(--primary-glow);
+}
+
+/* Audio Player */
+.sns-audio-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin: 16px 0;
+  backdrop-filter: blur(10px);
+}
+
+.audio-play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.audio-progress-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.audio-progress-bar {
+  width: 100%; height: 4px;
+  -webkit-appearance: none; appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px; outline: none; cursor: pointer;
+}
+
+
+.audio-progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* 🏷️ Interactive Tags */
+.tag.clickable {
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
+  padding-right: 28px;
+}
+
+.tag.clickable:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* 📱 SNS Detail Sheet Action Bar */
+.sns-action-bar {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  scrollbar-width: none;
+}
+
+.sns-action-bar::-webkit-scrollbar { display: none; }
+
+.sns-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-luxe);
+}
+
+.sns-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 💬 AI Chat System */
+.chat-panel {
+  position: fixed;
+  bottom: 110px;
+  right: 32px;
+  width: 380px;
+  height: 560px;
+  border-radius: 32px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 3000;
+}
+
+.chat-panel.active {
+  display: flex;
+  animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chat-header {
+  background: linear-gradient(to right, var(--primary), #5D3E2A);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  padding: 14px 20px;
+  border-radius: 20px;
+  max-width: 85%;
+  line-height: 1.6;
+}
+
+.message.ai {
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom-left-radius: 4px;
+  display: flex;
+  gap: 12px;
+}
+
+.message.user {
+  background: var(--primary);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-thinking-loader {
+  display: flex;
+  gap: 4px;
+  padding: 10px 16px;
+}
+
+.chat-thinking-loader span {
+  width: 5px;
+  height: 5px;
+  background: var(--accent-purple);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.chat-input-area {
+  padding: 24px;
+  display: flex;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.chat-input {
+  background: transparent;
+  border: none;
+  color: white;
+  flex: 1;
+  outline: none;
+}
+
+/* 🛡️ [RESTORED_INTERACTION] Premium AI Chat FAB & Avatar Layout */
+.chat-fab {
+  position: fixed; bottom: 32px; right: 32px;
+  width: 80px; height: 80px;
+  background: var(--bg-dark);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-luxe);
+  transition: var(--transition-luxe);
+  z-index: 1500;
+}
+
+.chat-fab:hover { transform: scale(1.1) translateY(-4px); border-color: var(--primary-glow); }
+
+.ai-avatar-tiny {
+  width: 28px; height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--accent-glow));
+  margin-right: 12px;
+}
+
+/* 🛡️ [RESTORED_MICROMANAGEMENT] Tag Micro-Animations & Typing Logic */
+.tag-del {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  font-size: 10px; opacity: 0.5; transition: 0.2s;
+}
+.tag-del:hover { opacity: 1; color: #ff4d4d; }
+
+.tag-add {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(255, 255, 255, 0.2);
+  cursor: pointer; transition: 0.2s;
+}
+.tag-add:hover { border-color: var(--primary-glow); transform: rotate(90deg); }
+
+.message.ai.typing::after {
+  content: '|'; margin-left: 2px;
+  animation: blink 0.8s infinite; color: var(--accent-purple);
+}
+
+/* 🛡️ [RESTORED_APEX] SLM Quick Action Chips */
+.quick-actions-wrap {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 12px 24px; align-self: flex-start;
+}
+
+.action-chip {
+  background: rgba(157, 80, 255, 0.12); border: 1px solid rgba(157, 80, 255, 0.3);
+  color: var(--accent-purple); padding: 6px 14px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.25s;
+}
+
+.action-chip:hover {
+  background: var(--accent-purple); color: white;
+  transform: translateY(-2px); box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+/* 🛡️ [RESTORED_APEX] Premium Audio Player Layout */
+.audio-player-slot {
+  background: rgba(0, 0, 0, 0.2); border-radius: 12px;
+  padding: 12px; border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+
+
+

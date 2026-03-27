@@ -1,0 +1,242 @@
+/* Locker (Archive) UI Styles */
+body.view-locker .locker-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9500;
+  border-radius: 0;
+  background: #0a0a0a;
+  display: flex !important;
+  transform: none !important;
+  animation: none !important;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.locker-panel {
+  position: relative;
+  width: 420px;
+  height: 600px;
+  border-radius: 32px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+  transition: var(--transition-luxe);
+}
+
+.locker-panel.active {
+  display: flex;
+  animation: slideInDeck 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInDeck {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.locker-header {
+  height: 70px;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+body.view-locker .locker-header {
+  padding: 32px 5% 10px 5%;
+  background: transparent;
+  border: none;
+}
+
+.locker-title {
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: var(--primary-glow);
+}
+
+body.view-locker .locker-title {
+  font-size: 28px;
+}
+
+/* Masonry Grid */
+.locker-content-view {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: 10px;
+  gap: 16px;
+  width: 100%;
+}
+
+body.view-locker .locker-content-view {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  padding: 24px 4%;
+}
+
+.locker-card {
+  background: var(--surface-light);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: grab;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--card-shadow);
+  grid-row-end: span 15;
+  position: relative;
+  overflow: hidden;
+}
+
+.locker-card:active {
+  cursor: grabbing;
+}
+
+.locker-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: var(--card-hover-shadow);
+}
+
+.locker-card.selected {
+  border: 3px solid var(--accent-purple) !important;
+  box-shadow: 0 0 25px rgba(157, 80, 255, 0.4) !important;
+  transform: scale(1.02);
+  z-index: 50;
+}
+
+/* Google Keep Colored Cards */
+.locker-card.keep-red { background: rgba(242, 139, 130, 0.12); border-color: rgba(242, 139, 130, 0.3); }
+.locker-card.keep-orange { background: rgba(251, 188, 4, 0.12); border-color: rgba(251, 188, 4, 0.3); }
+.locker-card.keep-yellow { background: rgba(255, 244, 117, 0.12); border-color: rgba(255, 244, 117, 0.3); }
+.locker-card.keep-green { background: rgba(204, 255, 144, 0.12); border-color: rgba(204, 255, 144, 0.4); }
+.locker-card.keep-teal { background: rgba(167, 255, 235, 0.12); border-color: rgba(167, 255, 235, 0.4); }
+.locker-card.keep-blue { background: rgba(174, 203, 250, 0.12); border-color: rgba(174, 203, 250, 0.4); }
+.locker-card.keep-purple { background: rgba(215, 174, 251, 0.12); border-color: rgba(215, 174, 251, 0.4); }
+.locker-card.keep-pink { background: rgba(253, 207, 232, 0.12); border-color: rgba(253, 207, 232, 0.4); }
+
+/* --- ✨ Special Buttons --- */
+.btn-itinerary-magic {
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(135deg, var(--accent-purple), #6A11CB);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 16px rgba(157, 80, 255, 0.2);
+  transition: var(--transition-luxe);
+}
+
+.btn-itinerary-magic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(157, 80, 255, 0.4);
+}
+
+/* --- ☁️ Sync View --- */
+.sync-illustration {
+  font-size: 80px;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 0 30px var(--primary-glow));
+  animation: floatCloud 3s infinite ease-in-out;
+}
+
+@keyframes floatCloud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* 🛡️ [RESTORED_INTERACTION] Locker Slot System Layout */
+.locker-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-height: 240px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.slot {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.slot:hover {
+  background: rgba(139, 94, 60, 0.1);
+  border-color: var(--primary-glow);
+  transform: translateY(-2px);
+}
+
+.slot-icon { font-size: 20px; margin-bottom: 4px; }
+.slot-label { font-size: 9px; font-weight: 700; color: var(--text-dim); }
+
+/* 🛡️ [FINAL_TREASURE] Locker Item Interaction Handlers */
+.card-drag-handle {
+  color: rgba(255, 255, 255, 0.2); font-size: 14px;
+  cursor: grab; padding: 4px;
+}
+.card-drag-handle:hover { color: var(--primary-glow); }
+
+.selection-items-cont {
+  flex: 1; overflow-y: auto; padding: 10px;
+  display: flex; flex-direction: column; gap: 6px;
+  min-height: 100px; /* Layout Guardian */
+}
+
+.deck-controls {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+body.view-locker .deck-controls {
+  padding: 0 5%;
+}
+
+.fab-btn {
+  display: none;
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+  color: white;
+  z-index: 15000;
+  box-shadow: var(--shadow-luxe);
+}
+
+body.view-locker .fab-btn {
+  display: flex;
+}

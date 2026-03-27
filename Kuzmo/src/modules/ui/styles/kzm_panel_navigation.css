@@ -1,0 +1,55 @@
+/* 🧭 Kuzmo Navigation & AI Panel (v1.0 - Modular) */
+
+/* 💬 AI Side Monitor */
+.side-panel {
+    position: fixed; left: 24px; top: 35%; transform: translateY(-50%);
+    width: 68px; height: 320px; z-index: 3000;
+    backdrop-filter: blur(50px); background: rgba(15,15,15,0.7);
+    border-radius: 40px; border: 1px solid var(--border-light);
+    display: flex; flex-direction: column; align-items: center; padding: 20px 0;
+    gap: 32px; opacity: 0.8; transition: var(--transition-luxe);
+    box-shadow: var(--shadow-luxe);
+    overflow: hidden;
+}
+.side-panel:hover { width: 220px; align-items: stretch; padding: 24px; opacity: 1; border-color: var(--kzm-primary); }
+.side-panel.faded { opacity: 0; pointer-events: none; transform: translateY(-40%) translateX(-20px); }
+
+/* 🧭 Global Navigator (Bottom) */
+.navigator-controls {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+  z-index: 8000; display: flex; align-items: center; justify-content: center; gap: 32px;
+  padding: 12px 24px;
+}
+
+.layout-controls {
+  display: flex; background: rgba(0,0,0,0.5); border-radius: 14px; padding: 4px; gap: 4px;
+  backdrop-filter: blur(14px); border: 1px solid var(--border-light);
+}
+
+.layout-toggle-btn {
+  padding: 8px 16px; border-radius: 10px; border: none;
+  background: transparent; color: var(--text-dim); cursor: pointer;
+  font-size: 11px; font-weight: 800; transition: 0.3s;
+}
+.layout-toggle-btn.active { background: #fff; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+/* 🇰🇷 Mode Switcher (Sovereign Style) */
+.mode-switcher {
+  display: flex; padding: 6px; border-radius: 50px;
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  gap: 4px;
+}
+
+.mode-tab {
+  padding: 12px 32px; border-radius: 40px; cursor: pointer;
+  font-size: 13px; font-weight: 800; color: var(--text-dim);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.1em;
+}
+.mode-tab.active { 
+    background: rgba(157, 80, 255, 0.4); 
+    color: #fff; border: 1px solid rgba(157, 80, 255, 0.6);
+}
+.mode-tab:hover:not(.active) { color: #fff; background: rgba(255, 255, 255, 0.1); }

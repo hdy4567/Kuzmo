@@ -1,0 +1,19 @@
+/* 🎨 Kuzmo Premium Unified UI (v5.5 - Modularized) */
+
+@import './styles/kzm_core.css';
+@import './styles/kzm_sheet.css';
+@import './styles/kzm_locker_vibe.css';
+@import './styles/kzm_panel_navigation.css';
+@import './styles/kzm_dock.css';
+
+/* Shared Animations & Atoms */
+.animate-in {
+    animation: slideInDock 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInDock {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.small-text { font-size: 8px !important; letter-spacing: 0.2em; opacity: 0.5; }

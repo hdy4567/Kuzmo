@@ -1,0 +1,41 @@
+# 🌌 Kuzmo Platform .gitignore
+
+# Dependencies
+node_modules/
+.npm/
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+build_errors.txt
+build_errors_utf8.txt
+
+# Editor / System
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Persistence
+*.db
+*.sqlite
+KuzmoVault/
+
+# Gemini / Brain
+.gemini/
+brain/
+
+# Large AI Models
+*.gguf
+*.bin
+.ragproj/models/

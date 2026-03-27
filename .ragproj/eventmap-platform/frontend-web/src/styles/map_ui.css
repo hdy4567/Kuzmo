@@ -1,0 +1,426 @@
+/* Map UI & Search Elements */
+#map {
+  height: 100vh;
+  width: 100vw;
+  background: #111;
+}
+
+#map .leaflet-tile {
+  filter: invert(100%) hue-rotate(180deg) sepia(20%) brightness(90%) contrast(110%);
+}
+
+.marker-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  background: var(--surface);
+  transition: transform 0.2s ease-out;
+}
+
+.marker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.marker-wrap:hover {
+  transform: scale(1.15) rotate(5deg);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 20px var(--accent-glow);
+  z-index: 1000;
+}
+
+.marker-wrap.selected {
+  outline: 3px solid var(--accent-purple);
+  outline-offset: 6px;
+  filter: drop-shadow(0 0 15px var(--accent-purple));
+  z-index: 5000 !important;
+  transform: scale(1.1) translateY(-10px);
+  animation: markerPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes markerPulse {
+  0% { outline-offset: 4px; filter: drop-shadow(0 0 10px var(--accent-purple)); }
+  50% { outline-offset: 8px; filter: drop-shadow(0 0 25px var(--accent-purple)); }
+  100% { outline-offset: 4px; filter: drop-shadow(0 0 10px var(--accent-purple)); }
+}
+
+/* Search Bar (Tier 3 System) */
+.top-panel-container {
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 720px;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-bar-wrap {
+  height: 68px;
+  border-radius: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  outline: none;
+}
+
+/* Country & Sub Tabs */
+.country-selector {
+  height: 52px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  border-radius: 26px;
+  display: flex;
+  padding: 4px;
+  position: relative;
+  align-self: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sub-tabs-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 40px;
+  width: 100%;
+  scrollbar-width: none;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.selection-box {
+  position: absolute;
+  border: 2.5px dashed var(--accent-purple);
+  background: rgba(157, 80, 255, 0.25);
+  z-index: 5000;
+  pointer-events: none;
+  display: none;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(157, 80, 255, 0.35);
+}
+
+/* 🎯 Success Pulse Animation */
+.marker-wrap.pulse-active {
+  animation: successPulse 0.8s ease-out;
+  z-index: 6000 !important;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.4); filter: brightness(1.5) drop-shadow(0 0 20px var(--primary-glow)); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* 📡 Knowledge Progress UI */
+.knowledge-progress-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  background: rgba(15, 15, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  z-index: 9999;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease-out;
+}
+
+.knowledge-progress-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-purple);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-purple), #9d50bb);
+  box-shadow: 0 0 10px var(--accent-purple);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 50px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* 🎯 Selection Action Bar (Floating) */
+.selection-action-bar {
+  position: fixed;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 10px 32px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 2300;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  pointer-events: none;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--accent-purple);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.selection-action-bar.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.selection-count {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--primary-glow);
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.selection-input-wrap input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 6px 12px;
+  color: white;
+  width: 160px;
+  outline: none;
+}
+
+.selection-action-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: 12px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 🗺️ GeoJSON Region Glow Effect */
+.region-glow-path {
+  filter: drop-shadow(0 0 10px var(--accent-purple));
+  animation: regionPulse 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes regionPulse {
+  from { stroke-opacity: 0.5; fill-opacity: 0.1; stroke-width: 3; }
+  to { stroke-opacity: 1; fill-opacity: 0.2; stroke-width: 5; }
+}
+
+/* 📦 Floating Storage Icon */
+.storage-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 2200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.storage-icon-btn {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition-luxe);
+  backdrop-filter: var(--glass-blur);
+}
+
+.storage-icon-btn:hover {
+  transform: scale(1.08) rotate(2deg);
+  border-color: var(--accent-purple);
+}
+
+.storage-icon-img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px var(--accent-glow));
+}
+
+/* 🛡️ [FINAL_TREASURE] Interactive Selection Feedback */
+.kzm-visual-box {
+  position: fixed; border: 2px dashed rgba(157, 80, 255, 0.6);
+  background: rgba(157, 80, 255, 0.15); pointer-events: none;
+  z-index: 20000; box-shadow: 0 0 15px rgba(157, 80, 255, 0.2);
+  border-radius: 4px; display: none;
+}
+
+
+/* 🛡️ [RESTORED_INTERACTION] Map Drag-and-Drop Active State */
+#map.drop-active {
+  box-shadow: inset 0 0 100px rgba(139, 94, 60, 0.15);
+  filter: contrast(0.95) brightness(1.05);
+  transition: all 0.3s ease;
+}
+
+
+/* 🛡️ [RESTORED_FOUNDATION] Map & Layout Foundations */
+#map .leaflet-tile {
+  filter: invert(100%) hue-rotate(180deg) sepia(20%) brightness(90%) contrast(110%);
+}
+
+.marker-wrap {
+  width: 58px; height: 58px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  background: var(--surface);
+  transition: transform 0.2s ease-out;
+}
+
+.top-panel-cont.map-action-bar {
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 12px; z-index: 1000;
+}
+
+/* 🛡️ [FINAL_TREASURE] Premium Branding & Batch UX */
+.logo-tag {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: linear-gradient(135deg, #8B5E3C, #5D3E2A); /* Luxury Brown */
+  color: white; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* 🛡️ [FINAL_GHOST] Selection Dot Indicator */
+.marker-selection-dot {
+  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-purple); box-shadow: 0 0 10px var(--accent-glow);
+  z-index: 5001; pointer-events: none;
+}
+
+
+.marker-wrap.selected {
+  outline: 3px solid var(--accent-purple);
+  outline-offset: 6px;
+  transform: scale(1.1) translateY(-10px); /* Floating Offset */
+  animation: selectionPulse 1.5s infinite ease-in-out;
+  z-index: 5000 !important;
+}
+
+@keyframes selectionPulse {
+  0%, 100% { outline-offset: 4px; }
+  50% { outline-offset: 8px; filter: drop-shadow(0 0 15px var(--accent-purple)); }
+}
+.top-panel-container {
+  position: fixed; top: 28px; left: 50%;
+  transform: translateX(-50%);
+  width: 92%; max-width: 720px;
+  z-index: 1500;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.tab-indicator {
+  position: absolute; top: 4px; left: 4px;
+  width: 110px; height: 44px;
+  background: linear-gradient(135deg, #8B5E3C, #5D3E2A);
+  border-radius: 22px;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* 🛡️ [RESTORED_APEX] 📡 AI RAG Intelligence Visuals */
+.rag-edge-glow {
+  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.8));
+  stroke-dasharray: 10, 10;
+  animation: ragDashAnim 2s linear infinite;
+}
+
+@keyframes ragDashAnim {
+  from { stroke-dashoffset: 20; }
+  to { stroke-dashoffset: 0; }
+}
+
+.marker-cluster-heatmap {
+  background: radial-gradient(circle, rgba(157, 80, 255, 0.6) 0%, rgba(157, 80, 255, 0) 70%);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: bold; font-size: 14px;
+  border: 1px solid rgba(157, 80, 255, 0.3);
+  box-shadow: 0 0 20px rgba(157, 80, 255, 0.4);
+}/* ⭐ [STELLAR-EDGE] Graph Visualization Effects */
+#map.graph-dimmed .leaflet-tile {
+    filter: invert(100%) hue-rotate(180deg) sepia(20%) brightness(40%) contrast(110%) blur(2px);
+    transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#map.graph-dimmed .marker-wrap:not(.rag-highlight):not(.selected) {
+    opacity: 0.15;
+    filter: grayscale(100%) blur(1px);
+    transform: scale(0.85);
+    pointer-events: none;
+    transition: all 0.6s ease;
+}
+
+.rag-highlight {
+    z-index: 9000 !important;
+    border-color: #00e5ff !important;
+    box-shadow: 0 0 30px #00e5ff, 0 0 60px rgba(0, 229, 255, 0.4) !important;
+    transform: scale(1.25) !important;
+    animation: stellarPulse 2s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes stellarPulse {
+    from { box-shadow: 0 0 20px #00e5ff; transform: scale(1.2); }
+    to { box-shadow: 0 0 50px #00e5ff, 0 0 100px rgba(0, 229, 255, 0.2); transform: scale(1.35); }
+}
+
+/* RAG Edge Glow Enhancement */
+.rag-edge-glow {
+    filter: drop-shadow(0 0 12px #00e5ff);
+    stroke-dasharray: 15, 15;
+    stroke-linecap: round;
+    animation: ragFlow 3s linear infinite;
+}
+
+@keyframes ragFlow {
+    from { stroke-dashoffset: 60; }
+    to { stroke-dashoffset: 0; }
+}

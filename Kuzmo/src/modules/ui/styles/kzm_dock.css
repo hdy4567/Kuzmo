@@ -1,0 +1,104 @@
+/* 💻 Kzm Premium Docks & Utility (v1.0 - Modular) */
+
+/* Utility Dock (Top Left) */
+.utility-dock-wrapper {
+  position: fixed; left: 24px; top: 100px; z-index: 2500;
+}
+.dock-container {
+  display: flex; flex-direction: column; gap: 12px; padding: 12px;
+  border-radius: 20px; border: 1px solid var(--border-light);
+}
+
+/* 🔘 Modern FAB */
+.locker-fab {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--kzm-primary); border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px var(--kzm-primary-glow);
+  transition: var(--transition-luxe);
+}
+.locker-fab::after { content: '＋'; color: #fff; font-size: 28px; font-weight: 900; }
+.locker-fab:hover { transform: scale(1.15) rotate(90deg); box-shadow: 0 15px 40px var(--kzm-primary-glow); }
+
+/* 💻 Mac-style Vertical Side Dock (Right) */
+#kzm-side-dock {
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  z-index: 5000; display: flex; align-items: center; padding-right: 8px;
+  pointer-events: auto;
+}
+
+.dock-bar {
+  display: flex; flex-direction: column; gap: 16px; padding: 14px;
+  border-radius: 24px 0 0 24px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-light); border-right: none;
+  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.4);
+  transform: translateX(85%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+}
+
+#kzm-side-dock:hover .dock-bar {
+  transform: translateX(0); box-shadow: -10px 0 50px rgba(139, 94, 60, 0.2);
+}
+
+/* 🌀 Sliding List Container (Scrollable) */
+.dock-sliding-list {
+    max-height: 320px; overflow-y: auto; overflow-x: hidden;
+    padding-right: 4px; display: flex; flex-direction: column; gap: 12px;
+    scroll-behavior: smooth;
+    mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+}
+.dock-sliding-list::-webkit-scrollbar { width: 0; display: none; }
+
+.dock-item {
+    width: 48px; min-height: 48px; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    font-size: 20px; border: 1px solid var(--border-light);
+    flex-shrink: 0;
+}
+.dock-item:hover { 
+    background: var(--kzm-primary); 
+    transform: scale(1.3) translateX(-8px); 
+    box-shadow: 0 10px 24px var(--kzm-primary-glow);
+    z-index: 2;
+}
+
+.dock-add {
+  background: rgba(139, 94, 60, 0.1); color: var(--kzm-accent);
+  border: 1px dashed var(--kzm-accent); font-weight: 900;
+}
+.dock-add:hover { background: var(--kzm-primary); color: #fff; border-style: solid; }
+
+/* 💠 Dock Controls & Divider */
+.dock-divider { height: 1px; background: var(--border-light); margin: 8px 4px; }
+.dock-controls { display: flex; flex-direction: row; gap: 8px; padding: 4px; justify-content: center; }
+.dock-checkbox { cursor: pointer; position: relative; }
+.dock-checkbox input { position: absolute; opacity: 0; width: 0; height: 0; }
+.cb-icon {
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-light);
+  font-size: 14px; transition: all 0.3s;
+}
+.dock-checkbox input:checked + .cb-icon { background: var(--kzm-primary); box-shadow: 0 0 10px var(--kzm-primary-glow); border-color: var(--kzm-accent); }
+.dock-checkbox:hover .cb-icon { transform: scale(1.1); background: rgba(255, 255, 255, 0.1); }
+
+/* 🌀 Dock Ambient Glow */
+.dock-glow-zone {
+  position: absolute; right: -20px; width: 60px; height: 240px;
+  background: radial-gradient(ellipse at center, var(--kzm-primary-glow) 0%, transparent 80%);
+  opacity: 0.2; transition: opacity 0.6s; pointer-events: none;
+}
+#kzm-side-dock:hover .dock-glow-zone { opacity: 0.6; }
+
+/* 🏷️ Tag Themes (3rd Filter Context) */
+.tag-dock-item {
+    background: rgba(139, 94, 60, 0.05);
+    border-color: rgba(139, 94, 60, 0.2);
+}
+.tag-dock-item .dock-icon { color: #8B5E3C; font-size: 16px; font-weight: 900; }
+.tag-dock-item:hover {
+    background: #8B5E3C;
+    border-color: var(--kzm-accent);
+}
+.tag-dock-item:hover .dock-icon { color: #fff; }

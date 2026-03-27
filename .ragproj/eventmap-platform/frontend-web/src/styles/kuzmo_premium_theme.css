@@ -1,0 +1,101 @@
+/**
+ * 🎨 Kuzmo Premium Design System (v32.0)
+ * =====================================
+ * Futuristic, glassmorphic, high-contrast dark theme.
+ */
+
+:root {
+  /* 🟪 Primary Palette (Glow Focus) */
+  --primary: #9d50bb;
+  --primary-glow: rgba(157, 80, 187, 0.4);
+  --secondary: #6e48aa;
+  --accent-purple: #c471ed;
+  --accent-cyan: #00e5ff;
+  --accent-blue: #4facfe;
+
+  /* 🌌 Neutrals (Dark Mode) */
+  --bg-deep: #050508;
+  --bg-dark: #0a0b10;
+  --bg-surface: rgba(18, 19, 28, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #f0f0f5;
+  --text-dim: rgba(240, 240, 245, 0.6);
+  --text-muted: rgba(240, 240, 245, 0.3);
+
+  /* 🟢 Status Indicators */
+  --success: #00ff88;
+  --error: #ff4b2b;
+  --warning: #ffb000;
+
+  /* ✨ Shadows & Elevations */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --glow-active: 0 0 20px var(--primary-glow);
+
+  /* 📏 Layout Constants */
+  --br-lg: 24px;
+  --br-md: 16px;
+  --br-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 🧊 Glassmorphism Core */
+.glass {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.glass-vibrant {
+  background: linear-gradient(
+    135deg, 
+    rgba(157, 80, 187, 0.15), 
+    rgba(110, 72, 170, 0.1)
+  );
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 💠 Neon Micro-animations */
+.neon-pulse {
+  animation: neon-pulse-anim 2s infinite ease-in-out;
+}
+
+@keyframes neon-pulse-anim {
+  0%, 100% { opacity: 0.8; box-shadow: 0 0 10px var(--primary-glow); }
+  50% { opacity: 1; box-shadow: 0 0 25px var(--primary-glow); }
+}
+
+/* 🗺️ Map-wide Enhancements */
+#map {
+  background: var(--bg-deep) !important;
+  filter: saturate(1.2) contrast(1.1);
+}
+
+.leaflet-marker-icon {
+  filter: drop-shadow(0 0 5px var(--primary-glow));
+  transition: transform var(--transition);
+}
+
+.leaflet-marker-icon:hover {
+  transform: scale(1.25) translateY(-5px);
+}
+
+/* ⌨️ Typography Reset */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-main);
+  background: var(--bg-deep);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.015em;
+}
+
+h1, h2, h3 {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #fff 40%, var(--text-dim));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
