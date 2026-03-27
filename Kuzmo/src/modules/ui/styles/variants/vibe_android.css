@@ -1,0 +1,18 @@
+/* 📱 Android-Prime Variant (Current Baseline) */
+.kzm-platform-android {
+  --kzm-scale: 0.92;
+  --kzm-unit: clamp(0.9rem, 1.2vw, 1.2rem);
+  
+  /* Layout Dimensions */
+  --kzm-panel-h: 58px;
+  --kzm-panel-gap: 12px;
+  --kzm-marker-base: 36px;
+  --kzm-locker-peek: 110px;
+  
+  /* Typography */
+  --kzm-font-base: 16px;
+  --kzm-font-title: 28px;
+  
+  /* Interactive */
+  --kzm-tap-target: 48px;
+}

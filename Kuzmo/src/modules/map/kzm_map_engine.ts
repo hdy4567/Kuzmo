@@ -3,26 +3,33 @@ import 'leaflet.markercluster';
 import { Kzm } from '../domain/kzm_entities';
 import { $store } from '../store/kzm_store';
 import { KzmMapPainter } from './kzm_map_painter';
+import { KzmSpatialSearchService } from './services/kzm_spatial_search_service';
+import { KzmMarkerHandler } from './handlers/kzm_marker_handler';
 import './kzm_map_styles.css';
 
 /**
- * 🗺️ KzmMapEngine (v2.4 - Modularized)
- * =========================  
- * Clean Map Interaction Layer with Unified Rendering.
+ * 🗺️ KzmMapEngine (v4.0 - Clean Orchestrator)
+ * ========================================
+ * High-Performance Viewport Windowing & UI Orchestration.
+ * Powered by KzmSpatialSearchService and KzmMarkerHandler.
  */
 export class KzmMapEngine {
   private static instance: KzmMapEngine;
   public map: L.Map | null = null;
-  private markers: Map<string, L.Marker> = new Map();
-  private selectionBox: L.Rectangle | null = null;
+  
   private clusterGroup: L.MarkerClusterGroup | null = null;
   private edgeLayer: L.LayerGroup | null = null;
+  private selectionBox: L.Rectangle | null = null;
+
+  // 🧱 [INTERNAL-MODULES] Architecture Splitting
+  private spatialService = new KzmSpatialSearchService();
+  private markerHandler = new KzmMarkerHandler();
 
   private visibilityFlags = { tourist: true, memory: true };
   private activeQuery: { category?: string, tag?: string, search?: string } = { category: 'ALL' };
 
   private constructor() {
-    console.log("🗺️ Map Engine Operational.");
+    console.log("🗺️ Map Engine Operational - Orchestrator mode.");
   }
 
   static get(): KzmMapEngine {
@@ -62,13 +69,22 @@ export class KzmMapEngine {
 
     this.setupMapEvents();
 
+    // 🏗️ Global Subscription (KzmStore)
     $store.subscribe((event: string) => {
-      if (event === 'SELECTION_CHANGED') this.updateMarkerHighlights();
-      else this.refreshMarkers();
+      if (event === 'SELECTION_CHANGED') this.markerHandler.updateHighlights($store.selectedIds);
+      else if (event === 'RECORDS_UPDATED') {
+          this.spatialService.rebuildIndex($store.records);
+          this.refreshAll();
+      }
+      else this.refreshAll();
     });
 
+    this.map.on('moveend', () => this.refreshAll());
+    this.map.on('zoomend', () => this.refreshAll());
+
     setTimeout(() => { if (this.map) this.map.invalidateSize(); }, 150);
-    this.refreshMarkers();
+    this.spatialService.rebuildIndex($store.records);
+    this.refreshAll();
   }
 
   private setupMapEvents(): void {
@@ -107,12 +123,56 @@ export class KzmMapEngine {
     this.map.on('contextmenu', (e: any) => this.createAt(e.latlng));
   }
 
+  /**
+   * 🧼 [ORCHESTRATION] Refresh all visual layers on the map.
+   */
+  public refreshAll(): void {
+    if (!this.map || !this.clusterGroup || !this.edgeLayer) return;
+
+    const bounds = this.map.getBounds();
+    const viewportInboundIds = this.spatialService.getViewportInboundIds(bounds);
+
+    const query = this.activeQuery;
+    const finalFiltered = $store.records.filter((r: Kzm.Record) => {
+      // 1. Viewport filter (RBush)
+      if (!viewportInboundIds.has(r.id)) return false;
+
+      // 2. Metadata & Visibility filters
+      const isTourist = r.category !== 'MEMO';
+      if (isTourist && !this.visibilityFlags.tourist) return false;
+      if (!isTourist && !this.visibilityFlags.memory) return false;
+      
+      if (query.category && query.category !== 'ALL') {
+        if (query.category === 'MEMO' && r.category !== 'MEMO') return false;
+        else if ((query.category === 'KR' || query.category === 'JP') && r.region !== query.category) return false;
+      }
+      
+      if (query.tag) {
+        const queryTags = Array.isArray(query.tag) ? query.tag : (query.tag as string).split(',');
+        if (!queryTags.some(t => r.tags.includes(t))) return false;
+      }
+      
+      if (query.search && !r.title.toLowerCase().includes(query.search.toLowerCase())) return false;
+      
+      return true;
+    });
+
+    // 📍 Marker Delegate
+    this.markerHandler.refreshMarkers(finalFiltered, this.clusterGroup, (id: string) => {
+        window.dispatchEvent(new CustomEvent('kzm-view-detail', { detail: { id } }));
+    });
+
+    this.edgeLayer.clearLayers();
+    this.drawGraphEdges();
+    this.markerHandler.updateHighlights($store.selectedIds);
+  }
+
   public createAt(latlng: L.LatLng): void {
     const newRecord = $store.createRecord({
       title: '새로운 핀',
       coord: latlng,
-      region: 'Seoul',
       category: 'MEMO',
+      region: 'Seoul',
       tags: ['@핀']
     });
     window.dispatchEvent(new CustomEvent('kzm-view-detail', { detail: { id: newRecord.id } }));
@@ -121,85 +181,16 @@ export class KzmMapEngine {
   public filterVisibility(flags: { showTourist: boolean, showMemory: boolean }): void {
     this.visibilityFlags.tourist = flags.showTourist;
     this.visibilityFlags.memory = flags.showMemory;
-    this.refreshMarkers();
+    this.refreshAll();
   }
 
   public filter(query: { category?: string, tag?: string, search?: string }): void {
     this.activeQuery = { ...this.activeQuery, ...query };
-    this.refreshMarkers();
-  }
-
-  private refreshMarkers(): void {
-    if (!this.clusterGroup || !this.edgeLayer) return;
-
-    this.clusterGroup.clearLayers();
-    this.edgeLayer.clearLayers();
-    this.markers.clear();
-
-    const query = this.activeQuery;
-    const filtered = $store.records.filter((r: Kzm.Record) => {
-      let match = true;
-      const isTourist = r.category !== 'MEMO';
-      if (isTourist && !this.visibilityFlags.tourist) return false;
-      if (!isTourist && !this.visibilityFlags.memory) return false;
-      
-      if (query.category && query.category !== 'ALL') {
-        if (query.category === 'MEMO') match = r.category === 'MEMO';
-        else if (query.category === 'KR' || query.category === 'JP') match = r.region === query.category;
-      }
-      
-      if (query.tag) {
-        const queryTags = Array.isArray(query.tag) ? query.tag : (query.tag as string).split(',');
-        match = match && queryTags.some(t => r.tags.includes(t));
-      }
-      
-      if (query.search) match = match && r.title.toLowerCase().includes(query.search.toLowerCase());
-      return match;
-    });
-
-    filtered.forEach((r: Kzm.Record) => {
-      const color = r.category === 'MEMO' ? 'var(--kzm-primary)' : '#9d50bb';
-      const marker = L.marker([r.coord.lat, r.coord.lng], {
-        draggable: true,
-        icon: L.divIcon({
-          html: `<div class="kzm-marker-icon" style="border-color:${color}"><div class="kzm-marker-dot"></div></div>`,
-          className: 'kzm-marker', iconSize: [32, 32]
-        })
-      });
-      
-      marker.on('dragend', (e) => {
-        const newPos = (e.target as L.Marker).getLatLng();
-        $store.updateRecord(r.id, { coord: newPos });
-        console.log(`📍 Relocated [${r.id}] to [${newPos.lat}, ${newPos.lng}]`);
-      });
-
-      marker.on('click', (e) => {
-        L.DomEvent.stopPropagation(e);
-        window.dispatchEvent(new CustomEvent('kzm-view-detail', { detail: { id: r.id } }));
-      });
-      
-      this.clusterGroup!.addLayer(marker);
-      this.markers.set(r.id, marker);
-    });
-
-    this.drawGraphEdges();
-    this.updateMarkerHighlights();
-  }
-
-  private updateMarkerHighlights(): void {
-    const selected = $store.selectedIds;
-    this.markers.forEach((marker, id) => {
-      const iconEl = marker.getElement();
-      if (iconEl) {
-        if (selected.has(id)) iconEl.classList.add('selected');
-        else iconEl.classList.remove('selected');
-      }
-    });
+    this.refreshAll();
   }
 
   private performSelection(bounds: L.LatLngBounds): void {
-    const ids: string[] = [];
-    this.markers.forEach((m: L.Marker, id: string) => { if (bounds.contains(m.getLatLng())) ids.push(id); });
+    const ids = this.markerHandler.getIdsInBounds(bounds);
     $store.setSelection(ids);
   }
 
@@ -208,9 +199,15 @@ export class KzmMapEngine {
     KzmMapPainter.drawGraph(this.edgeLayer, $store.records, $store.graph.edges);
   }
 
+  public drawConstellation(targetRecords: Kzm.Record[]): void {
+    if (!this.edgeLayer) return;
+    this.edgeLayer.clearLayers();
+    KzmMapPainter.drawGraph(this.edgeLayer, $store.records, $store.graph.edges);
+    KzmMapPainter.drawConstellation(this.edgeLayer, targetRecords);
+  }
+
   public getMarkerElement(id: string): HTMLElement | null {
-    const marker = this.markers.get(id);
-    return marker ? (marker.getElement() as HTMLElement) : null;
+    return this.markerHandler.getMarkerElement(id);
   }
 }
 

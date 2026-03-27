@@ -1,10 +1,12 @@
 import { Kzm } from '../domain/kzm_entities';
+import { KzmMath } from '../domain/kzm_math';
+
 export class KzmGraphEngine {
   // ⚙️ [CONFIG] Hybrid Logic Weights
   private static readonly WEIGHT_GEO = 0.45;
   private static readonly WEIGHT_TIME = 0.15;
   private static readonly WEIGHT_SEMANTIC = 0.40;
-  private static readonly RADIUS_LIMIT = 0.05; // ~5km Max Geo
+  private static readonly RADIUS_LIMIT = 5.0; // 5.0km Max Geo
 
   /**
    * 🕸️ [DYNAMIC-LINKAGE] Compute Intelligence-based Edges
@@ -46,9 +48,9 @@ export class KzmGraphEngine {
   }
 
   private static calculateGeoScore(a: Kzm.Record, b: Kzm.Record): number {
-    const d = Math.sqrt(Math.pow(a.coord.lat - b.coord.lat, 2) + Math.pow(a.coord.lng - b.coord.lng, 2));
-    if (d > this.RADIUS_LIMIT) return 0;
-    return 1.0 - (d / this.RADIUS_LIMIT);
+    const dist = KzmMath.haversine(a.coord.lat, a.coord.lng, b.coord.lat, b.coord.lng);
+    if (dist > this.RADIUS_LIMIT) return 0;
+    return 1.0 - (dist / this.RADIUS_LIMIT);
   }
 
   private static calculateTimeScore(a: Kzm.Record, b: Kzm.Record): number {
@@ -72,3 +74,4 @@ export class KzmGraphEngine {
     return 'TEMPORAL';
   }
 }
+

@@ -43,6 +43,19 @@ export class KzmUIOrchestrator {
   public init(parent: HTMLElement | null): void {
     if (!parent) return;
     this.container = parent;
+
+    // 🌊 [DYNAMIC-PLATFORM] Scale Selection
+    const isWider = window.innerWidth > 1024;
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isWider && !isTouch) {
+      document.body.classList.add('kzm-platform-web');
+      console.log("🌐 Kuzmo: WEB-PRIME (Fit Mode) Engaged.");
+    } else {
+      document.body.classList.add('kzm-platform-android');
+      console.log("📱 Kuzmo: ANDROID-PRIME (Vibe Mode) Engaged.");
+    }
+
     this.container.innerHTML = `<div id="kuzmo-dashboard" class="dashboard-root"></div>`;
     const dash = document.getElementById('kuzmo-dashboard')!;
 
@@ -92,6 +105,8 @@ export class KzmUIOrchestrator {
     
     // Highlight relevant markers & edges
     const records = $store.records;
+    const targetNodes = records.filter(r => r.tags.includes(tag));
+    
     records.forEach(r => {
       const el = $map.getMarkerElement(r.id);
       if (el) {
@@ -99,6 +114,9 @@ export class KzmUIOrchestrator {
         else el.classList.remove('highlighted');
       }
     });
+
+    // 🌌 [ACTION] Draw the Stellar-Edge Constellation
+    $map.drawConstellation(targetNodes);
 
     console.log(`🌌 Stellar-Edge engaged for tag: ${tag}`);
   }
@@ -111,7 +129,10 @@ export class KzmUIOrchestrator {
        const el = $map.getMarkerElement(r.id);
        if (el) el.classList.remove('highlighted');
     });
+
+    $map.drawConstellation([]); // Clear constellation lines
   }
+
 
   private setupGlobalEvents(): void {
     window.addEventListener('kzm-view-detail', (e: any) => {

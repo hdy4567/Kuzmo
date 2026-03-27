@@ -15,6 +15,15 @@
   --text-dim: rgba(255, 255, 255, 0.7);
   --shadow-luxe: 0 24px 64px rgba(0, 0, 0, 0.8);
   --transition-luxe: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* 🌊 [DYNAMIC-SCALING] System Tokens - Fallback Defaults */
+  --kzm-scale: 0.9; 
+  --kzm-unit: clamp(0.7rem, 1.1vw, 1.1rem);
+  --kzm-panel-h: 52px;
+  --kzm-panel-gap: 12px;
+  --kzm-marker-base: 36px;
+  --kzm-locker-peek: 100px;
+  --kzm-tap-target: 44px;
 }
 
 * { box-sizing: border-box; font-family: 'Outfit', sans-serif; user-select: none; -webkit-user-select: none; }
@@ -27,10 +36,10 @@ body, html { margin: 0; padding: 0; background: #000; color: var(--text); overfl
 }
 
 .kzm-marker-icon {
-  width: 58px; height: 58px;
+  width: var(--kzm-marker-base); height: var(--kzm-marker-base);
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  border: 2px solid white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  border: 1.5px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   display: flex; align-items: center; justify-content: center;
   background-size: cover; background-position: center;
   transition: transform 0.2s ease-out; background-color: var(--surface);
@@ -59,13 +68,14 @@ body, html { margin: 0; padding: 0; background: #000; color: var(--text); overfl
 
 /* 🧭 Global Navigator Elements */
 .top-panel-container {
-  position: fixed; top: 28px; left: 50%; transform: translateX(-50%);
-  width: 92%; max-width: 720px; z-index: 2000;
-  display: flex; flex-direction: column; gap: 16px;
+  position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
+  width: 90%; max-width: 680px; z-index: 2000;
+  display: flex; flex-direction: column; gap: var(--kzm-panel-gap);
 }
 
 .tier-1 {
-  height: 68px; border-radius: 34px; display: flex; align-items: center; padding: 0 24px; gap: 16px;
+  height: var(--kzm-panel-h); border-radius: calc(var(--kzm-panel-h) / 2); 
+  display: flex; align-items: center; padding: 0 1.5rem; gap: 1rem;
   background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-light);
 }
 
@@ -138,8 +148,8 @@ body, html { margin: 0; padding: 0; background: #000; color: var(--text); overfl
 }
 
 .kzm-btn-circle {
-  width: 48px;
-  height: 48px;
+  width: var(--kzm-tap-target);
+  height: var(--kzm-tap-target);
   border-radius: 50%;
   padding: 0;
   background: var(--kzm-primary);

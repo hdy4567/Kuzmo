@@ -1,0 +1,18 @@
+/* 🌐 Web-Prime Variant (Fit Mode for Precision) */
+.kzm-platform-web {
+  --kzm-scale: 0.82;
+  --kzm-unit: clamp(0.75rem, 1vw, 1rem);
+  
+  /* Layout Dimensions - Slimmer & Precise */
+  --kzm-panel-h: 48px;
+  --kzm-panel-gap: 8px;
+  --kzm-marker-base: 28px;
+  --kzm-locker-peek: 90px;
+  
+  /* Typography - Desktop Optimized */
+  --kzm-font-base: 14px;
+  --kzm-font-title: 22px;
+  
+  /* Interactive - High Precision */
+  --kzm-tap-target: 36px;
+}

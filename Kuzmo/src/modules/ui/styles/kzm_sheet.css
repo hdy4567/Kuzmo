@@ -1,7 +1,7 @@
 /* 📝 Kzm Premium Detail Sheet (v1.0 - Modular) */
 
 .detail-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 4000;
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9500;
   background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center;
   transition: opacity 0.4s; opacity: 0; pointer-events: none;

@@ -16,18 +16,17 @@
   background: #0A0908 !important;
 }
 
-/* 🗺️ Marker Styles */
 .kzm-marker-icon {
-  width: 32px;
-  height: 32px;
+  width: calc(28px * var(--kzm-scale));
+  height: calc(28px * var(--kzm-scale));
   border-radius: 50% 50% 50% 0;
-  background: rgba(18, 19, 32, 0.8);
-  border: 3px solid var(--kzm-primary);
+  background: rgba(18, 19, 32, 0.85);
+  border: 2px solid var(--kzm-primary);
   transform: rotate(-45deg);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .kzm-marker-icon:hover {
@@ -99,19 +98,45 @@
 }
 
 @keyframes pulse-selection {
-  0% {
-    box-shadow: 0 0 0 0 rgba(157, 80, 255, 0.7);
-  }
-
-  70% {
-    box-shadow: 0 0 0 20px rgba(157, 80, 255, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(157, 80, 255, 0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(157, 80, 255, 0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(157, 80, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(157, 80, 255, 0); }
 }
 
-.kzm-selection-box {
-  pointer-events: none;
+/* 🌌 [STELLAR-STARK] Constellation Pulse & Glow */
+.stellar-link-animation {
+    stroke-dasharray: 12, 12;
+    animation: stellarDash 1.2s linear infinite, stellarGlow 2s alternate infinite ease-in-out;
+    filter: drop-shadow(0 0 12px #00e5ff);
+    pointer-events: none;
+}
+
+@keyframes stellarDash {
+    from { stroke-dashoffset: 48; }
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes stellarGlow {
+    from { opacity: 0.5; stroke-width: 2px; stroke: #00e5ff; }
+    to { opacity: 1.0; stroke-width: 4px; stroke: #fff; }
+}
+
+/* 🌒 [DIMMING] Focus Strategy */
+.dashboard-root { transition: filter 0.5s ease; }
+.dashboard-root.graph-dimmed .leaflet-tile-pane {
+    filter: invert(100%) hue-rotate(180deg) sepia(30%) brightness(30%) grayscale(80%) contrast(150%);
+    opacity: 0.4;
+}
+
+.kzm-marker-icon.highlighted {
+    transform: rotate(-45deg) scale(1.4);
+    border-color: #00e5ff !important;
+    box-shadow: 0 0 30px #00e5ff, 0 0 60px rgba(0, 229, 255, 0.6);
+    z-index: 10000 !important;
+    animation: markerNeonGlow 1.5s infinite alternate;
+}
+
+@keyframes markerNeonGlow {
+    from { filter: brightness(1.0) drop-shadow(0 0 10px #00e5ff); }
+    to { filter: brightness(1.5) drop-shadow(0 0 25px #00e5ff); }
 }

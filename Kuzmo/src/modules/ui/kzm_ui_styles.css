@@ -1,6 +1,8 @@
 /* 🎨 Kuzmo Premium Unified UI (v5.5 - Modularized) */
 
 @import './styles/kzm_core.css';
+@import './styles/variants/vibe_android.css';
+@import './styles/variants/vibe_web.css';
 @import './styles/kzm_sheet.css';
 @import './styles/kzm_locker_vibe.css';
 @import './styles/kzm_panel_navigation.css';
