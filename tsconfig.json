@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "5.0",
+    "types": [
+      "leaflet",
+      "leaflet.markercluster"
+    ],
+    "paths": {
+      "@kzm/*": [
+        "./frontend-modules/*"
+      ],
+      "@modules/*": [
+        "./frontend-modules/modules/*"
+      ]
+    }
+  },
+  "include": [
+    "frontend-modules/**/*.ts",
+    "frontend-modules/**/*.d.ts",
+    "frontend-modules/**/*.tsx",
+    "frontend-modules/modules/memo/db/kzm_indexeddb.ts",
+    "public/data/kzm_packet_kuzmo.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

@@ -1,0 +1,585 @@
+/* [MAP-SOVEREIGN-STYLES] Kuzmo Map Module Styles (v12.0) */
+
+#map-canvas-root {
+  width: 100%;
+  height: 100%;
+  background: var(--kzm-map-static-bg);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.leaflet-container {
+  /* 🛡️ [FILTER-ISOLATION] Do not apply filter to the root container to avoid marker-blindness */
+  filter: none !important;
+  /* 모든 필터 효과를 이계층에서 차단 */
+}
+
+.leaflet-tile-pane {
+  /* 🌗 [NIGHT-MODE-CORE] Only invert the map tiles, leaving markers in high-contrast neon */
+  filter: var(--kzm-map-master-filter) !important;
+  /*다크모드*/
+  transition: filter 0.6s ease-in-out;
+  /*부드러운 전환*/
+  will-change: filter;
+  /*필터 변경시 부드러운 전환을 위해 gpu 활성화해서 60fps 유지 */
+}
+
+.kzm-marker-icon {
+  width: calc(28px * var(--kzm-scale));
+  height: calc(28px * var(--kzm-scale));
+  background: var(--kzm-panel-bg);
+  border: 2px solid var(--kzm-primary);
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.kzm-marker-icon:hover {
+  border-color: var(--kzm-accent) !important;
+  box-shadow: 0 0 20px var(--kzm-accent), 0 0 40px var(--kzm-primary-glow) !important;
+  z-index: 1000 !important;
+}
+
+.kzm-marker-icon .kzm-marker-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--kzm-text);
+  border-radius: 50%;
+}
+
+/* Cluster Styles */
+.kzm-cluster-icon {
+  background: var(--kzm-primary-glow);
+  backdrop-filter: var(--kzm-glass-blur);
+  border: 1px solid var(--kzm-accent);
+  border-radius: 50%;
+  color: var(--kzm-text);
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 0 20px var(--kzm-primary-glow);
+  font-size: 14px;
+}
+
+/* Atmospheric Visual Effects */
+.kzm-fx-dimmed {
+  opacity: 0.15 !important;
+  filter: grayscale(0.8) blur(1px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.kzm-fx-stigmata {
+  opacity: 1.0 !important;
+  filter: drop-shadow(0 0 15px var(--kzm-primary));
+  transform: scale(1.2);
+  z-index: 3000 !important;
+  animation: stigmataPulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+@keyframes stigmataPulse {
+  0% {
+    filter: drop-shadow(0 0 5px var(--kzm-primary));
+    transform: scale(1.15);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 25px var(--kzm-primary));
+    transform: scale(1.25);
+  }
+
+  100% {
+    filter: drop-shadow(0 0 5px var(--kzm-primary));
+    transform: scale(1.15);
+  }
+}
+
+/* Lasso Selection Box Style */
+.selection-lasso-box {
+  pointer-events: none;
+  stroke-dasharray: 4, 4;
+}
+
+.kzm-multi-selected {
+  border-color: var(--kzm-accent) !important;
+  box-shadow: 0 0 15px var(--kzm-accent) !important;
+  transform: scale(1.1) rotate(-45deg) !important;
+}
+
+/* [MAP-TIER-CLEANUP] Remove tier borders as per v1.10 spec */
+.leaflet-interactive {
+  outline: none !important;
+  stroke: none !important;
+  fill-opacity: 0.2;
+}
+
+/* [REGION-GLOW] Sovereign Focus Glow (v3.0 Premium Spec) */
+.kzm-region-focus {
+  stroke: var(--kzm-primary) !important;
+  stroke-width: 2.5 !important;
+  stroke-dasharray: 6, 4 !important;
+  /* ✨ User Spec: Dashed 6,4 */
+  stroke-linecap: round;
+  fill: var(--kzm-primary) !important;
+  fill-opacity: 0.15 !important;
+  /* ✨ User Spec: Subtle 0.15 Fill */
+  filter: drop-shadow(0 0 6px var(--kzm-primary-glow));
+  /* ✨ User Spec: 6px Subtle Glow */
+  animation: kzm-region-breathing 3s infinite var(--kzm-ease);
+  pointer-events: none;
+  transition: all 0.5s var(--kzm-ease);
+  will-change: filter, fill-opacity, stroke-opacity;
+}
+
+/* 🎭 [STIGMATA-MODE] Visual State Transitions */
+/* 🎭 [STIGMATA-MODE] Deep Cosmos Blackout (Minimal Fix) */
+.kzm-map-sovereign.kzm-fx-mode-stigmata #map-canvas-root {
+  filter: brightness(0) !important;
+  opacity: 0.03 !important;
+  /* Extremely subtle texture to prevent complete void */
+  transition: all 1.0s var(--kzm-ease);
+  background: #000 !important;
+}
+
+.kzm-map-sovereign.kzm-fx-mode-stigmata .kzm-region-focus {
+  filter: drop-shadow(0 0 20px var(--kzm-primary-glow)) brightness(2.0);
+  fill-opacity: 0.4 !important;
+}
+
+/* 🪐 [STIGMATA-LINES] High-fidelity ethereal connections */
+.kzm-constellation-line {
+  stroke: #9D50FF;
+  filter: drop-shadow(0 0 12px #9D50FF) drop-shadow(0 0 4px #fff);
+  stroke-dasharray: 4, 12;
+  animation: stigmataFloat 4s infinite linear;
+  stroke-opacity: 0.8 !important;
+}
+
+@keyframes stigmataFloat {
+  from {
+    stroke-dashoffset: 64;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes kzm-region-breathing {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px var(--kzm-primary-glow));
+    stroke-opacity: 0.5;
+    fill-opacity: 0.12;
+  }
+
+  50% {
+    filter: drop-shadow(0 0 10px var(--kzm-primary-glow));
+    /* ✨ Pulse expansion */
+    stroke-opacity: 1.0;
+    fill-opacity: 0.22;
+  }
+}
+
+/* 🪐 [CONSTELLATION-NEON-GLOW] */
+.kzm-constellation-line {
+  filter: drop-shadow(0 0 8px var(--kzm-primary-glow));
+  stroke-dasharray: 5, 10;
+  animation: constellationPulse 3s infinite ease-in-out;
+}
+
+@keyframes constellationPulse {
+
+  0%,
+  100% {
+    stroke-opacity: 0.2;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-opacity: 0.6;
+    stroke-dashoffset: 15;
+  }
+}
+
+/* 🛠️ [VISIBILITY-CORE] Enforced Hide Protocol */
+.hidden {
+  display: none !important;
+}
+
+.kzm-pushed {
+  transform: translateY(-80px) scale(0.95);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+/* [MAP-UI-SOVEREIGNTY] Relocated from UI Core for Module Autonomy */
+.top-panel-container {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) scale(var(--kzm-map-scale, 0.85));
+  z-index: var(--z-top-nav);
+  width: 95%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.top-panel-container>* {
+  pointer-events: auto;
+}
+
+.island-tier {
+  background: var(--kzm-glass-bg);
+  backdrop-filter: var(--kzm-glass-blur);
+  -webkit-backdrop-filter: var(--kzm-glass-blur);
+  border: 1px solid var(--kzm-glass-border);
+  border-radius: 26px;
+  box-shadow: var(--kzm-shadow);
+  transition: var(--transition-luxe);
+  overflow: hidden;
+}
+
+.island-tier:hover {
+  border-color: var(--kzm-accent);
+  transform: translateY(-2px);
+}
+
+/* Tier 1: Search */
+.tier-search {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.search-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 0 14px;
+  height: 40px;
+}
+
+.search-field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--kzm-text);
+  font-size: 14px;
+}
+
+/* 🪐 [PURPLE-SOVEREIGN-SYSTEM] Restored from Navigator Logic */
+.tier-purple-stack {
+  border: 1.5px solid var(--kzm-primary) !important;
+  background: var(--kzm-glass-bg) !important;
+  box-shadow: 0 4px 30px var(--kzm-primary-glow);
+  margin-bottom: 14px;
+  padding: 6px;
+}
+
+.purple-capsule {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+}
+
+.purple-capsule .region-tab {
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--kzm-text-dim);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.purple-capsule .region-tab.active {
+  background: var(--kzm-primary);
+  color: #fff;
+  box-shadow: 0 0 15px var(--kzm-primary-glow);
+}
+
+.purple-smart-bar {
+  display: flex;
+  gap: 20px;
+  padding: 8px 16px;
+}
+
+.p-link {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--kzm-text-dim);
+  cursor: pointer;
+  letter-spacing: 0.1em;
+}
+
+.p-link.active {
+  color: #fff;
+}
+
+/* 🏷️ Tier 3: Infinite Chips (Snap-Scroll Implementation) */
+.tier-chips {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* 🛰️ [SOVEREIGN-FILTER-SHELF] v1.0 - Naver & Navigator Hybrid */
+.sovereign-filter-shelf {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-nav-top, 9100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: auto;
+  min-width: 500px;
+  transition: var(--transition-luxe);
+}
+
+/* 🪐 Tier 1: Naver-Style Search Bar */
+.naver-search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--kzm-glass-bg);
+  backdrop-filter: var(--kzm-glass-blur);
+  border: 2.5px solid var(--kzm-primary);
+  border-radius: 40px;
+  padding: 6px 6px 6px 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  width: 600px;
+}
+
+/* Fix for Gradient + Radius */
+.naver-search-bar {
+  border: 1.5px solid #9D50FF;
+  border-radius: 40px;
+  background-clip: padding-box;
+}
+
+.search-gradient-icon {
+  font-size: 16px;
+  margin-right: 12px;
+  opacity: 0.8;
+}
+
+.naver-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.region-capsule-mini {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  padding: 2px;
+}
+
+.r-tab {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--kzm-text-dim);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.r-tab.active {
+  background: var(--kzm-primary);
+  color: #fff;
+  box-shadow: 0 4px 15px var(--kzm-primary-glow);
+}
+
+/* ⚡ Tier 2: Segment Control */
+.nav-segment-control {
+  display: flex;
+  background: rgba(15, 14, 20, 0.8);
+  backdrop-filter: blur(20px);
+  padding: 4px;
+  border-radius: 30px;
+  border: 1px solid var(--kzm-glass-border);
+  gap: 2px;
+}
+
+.nav-tab {
+  background: transparent;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--kzm-text-dim);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-tab.active {
+  background: rgba(205, 127, 50, 0.15);
+  color: var(--kzm-primary);
+}
+
+/* 🏷️ Tier 3: Tag Corridor (Kinetic & Infinite Restored) */
+.tier-tag-corridor {
+  width: 600px;
+  height: 64px;
+  position: relative;
+  user-select: none;
+  cursor: default;
+
+  /* 🛡️ [UX-MINIMAL] Show arrow by default */
+  z-index: 10;
+  /* 클릭 이벤트 들어간다면,  */
+}
+
+.tier-tag-corridor:active {
+  cursor: grabbing;
+  /* ✊ [UX-ACTION] Fist only on touch/click */
+}
+
+.tag-container-luxe {
+  width: 100%;
+  height: 100%;
+  background: var(--kzm-glass-bg);
+  backdrop-filter: var(--kzm-glass-blur);
+  border: 2px solid var(--kzm-glass-border);
+  border-radius: 40px;
+  /* Aligned with Search Bar */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 필터 끝부분 안개화 */
+.tag-view-port {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* 🛸 Side Fades for Infinite Look within the container */
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.tag-rail {
+  display: flex;
+  gap: 12px;
+  padding: 10px 40px;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.corridor-pill {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--kzm-glass-border);
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--kzm-text-dim);
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+.corridor-pill.active {
+  background: #9D50FF !important;
+  border-color: #9D50FF !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(157, 80, 255, 0.8), 0 0 30px rgba(157, 80, 255, 0.4);
+  transform: translateY(-2px);
+  z-index: 100 !important;
+}
+
+.corridor-pill:hover:not(.active) {
+  border-color: rgba(178, 139, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 🐚 [CONCH-MARKER-SYSTEM] v3.0 Premium Geometry */
+.kzm-conch-marker-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.kzm-marker-conch {
+  position: relative;
+  will-change: transform, filter;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.kzm-marker-conch svg {
+  filter: drop-shadow(0 0 5px var(--kzm-primary-glow));
+}
+
+/* 🌀 Hover & Selection States */
+.kzm-conch-marker-wrapper.hover .kzm-marker-conch {
+  transform: scale(1.3) translateY(-5px) rotate(-10deg);
+}
+
+.kzm-marker-conch.selected svg {
+  filter: drop-shadow(0 0 15px var(--kzm-primary)) drop-shadow(0 0 5px #fff);
+  animation: conch-selected-pulse 2s infinite ease-in-out;
+}
+
+@keyframes conch-selected-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px var(--kzm-primary));
+  }
+
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 25px var(--kzm-primary));
+  }
+}
+
+.conch-shadow {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 4px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}

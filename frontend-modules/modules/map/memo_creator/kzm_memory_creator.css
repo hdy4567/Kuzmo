@@ -1,0 +1,109 @@
+﻿/* ?뜉 [CREATOR] Google Banana Theme - Vibrant Sovereign Mode */
+:root {
+  --banana-primary: #FBBC05;
+  --banana-bg: #FFFFFF;
+  --banana-text: #202124;
+  --banana-sub: #5F6368;
+  --banana-shadow: 0 10px 40px rgba(251, 188, 5, 0.15);
+  --banana-radius: 32px;
+}
+
+.memory-creator-v1 {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  width: 580px;
+  background: var(--banana-bg);
+  border-radius: var(--banana-radius);
+  padding: 32px;
+  box-shadow: var(--banana-shadow);
+  border: 1.5px solid rgba(251, 188, 5, 0.1);
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 35000;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.memory-creator-v1.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.creator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.creator-header .coord-badge {
+  background: var(--banana-primary);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 40px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  box-shadow: 0 4px 10px rgba(251, 188, 5, 0.3);
+}
+
+.creator-title-input {
+  background: #F8F9FA;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--banana-text);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.creator-title-input:focus {
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--banana-primary);
+}
+
+.creator-body-input {
+  background: #F8F9FA;
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 120px;
+  font-size: 14px;
+  color: var(--banana-text);
+  outline: none;
+  resize: none;
+}
+
+.creator-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-banana-main {
+  background: var(--banana-primary);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 40px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 15px rgba(251, 188, 5, 0.2);
+}
+
+.btn-banana-main:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.btn-banana-cancel {
+  background: transparent;
+  color: var(--banana-sub);
+  border: none;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+}

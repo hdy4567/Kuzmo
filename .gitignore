@@ -1,0 +1,17 @@
+node_modules
+dist
+.vite
+*.log
+.ragproj/**/node_modules
+.ragproj/**/build
+.ragproj/**/dist
+tmp
+_backup
+git_status.txt
+ts_errors.txt
+tsc_errors.txt
+tsc_errors_all.txt
+tsc_errors_new.txt
+tsc_filtered_errors.txt
+diff_files.txt
+tmp_diff.txt

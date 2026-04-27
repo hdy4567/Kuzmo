@@ -1,0 +1,69 @@
+/* [UI-ATOMS] Kuzmo Sovereign UI Atoms (v1.5 - Optimized) */
+
+/* 1. 기본 버튼 시스템 (Sovereign Buttons) */
+.kzm-btn {
+  background: var(--kzm-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--kzm-radius-base);
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition-luxe);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.kzm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--kzm-primary-glow);
+  filter: brightness(1.1);
+}
+
+/* 2. 소버린 글래스 패턴 (Glassmorphism Sovereignty) */
+.kzm-glass-panel {
+  background: var(--kzm-glass-bg);
+  backdrop-filter: var(--kzm-glass-blur);
+  -webkit-backdrop-filter: var(--kzm-glass-blur);
+  border: 1px solid var(--kzm-glass-border);
+  box-shadow: var(--kzm-shadow);
+  border-radius: var(--kzm-radius-base);
+}
+
+/* 3. 네온 및 발광 효과 (Neon & Glow Atoms) */
+.kzm-neon-border {
+  border: 1.5px solid var(--kzm-accent) !important;
+  box-shadow: 0 0 20px var(--kzm-primary-glow);
+}
+
+.kzm-pulse-anim {
+  animation: kzm-pulse-authority 2s infinite ease-in-out;
+}
+
+@keyframes kzm-pulse-authority {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* 4. 공용 태그 칩 (Unified Tags) */
+.kzm-tag-chip {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--kzm-glass-border);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--kzm-accent);
+  transition: var(--transition-luxe);
+}
+
+.kzm-tag-chip:hover {
+  background: var(--kzm-primary);
+  color: #fff;
+  border-color: var(--kzm-accent);
+}
+
+/* [ATOMS-CLEANUP] Dock elements moved to kzm_dock.css for Module Sovereignty */

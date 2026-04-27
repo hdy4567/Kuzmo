@@ -1,0 +1,225 @@
+/* [GHOSTED-FOR-UNIFICATION] The following code has been moved to kzm_archive_sovereign.ts/css \n\n/* ?���?KzmDetailSheet (v6.0 - SNS Kinetic Detail) */
+
+.detail-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40000;
+  /* Upper Sovereignty ?���?*/
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.detail-sheet-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.detail-sheet-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ?���?The Sheet Content Board */
+.sheet-scroller {
+  width: 100%;
+  max-width: 640px;
+  height: 94vh;
+  background: #121320;
+  /* Midnight Purge */
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.9);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+
+/* ?�� [HERO-SECTION] */
+.hero-overlay-box {
+  width: 100%;
+  height: 480px;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.swipe-handle {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  z-index: 100;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detail-sheet-overlay.visible .hero-img {
+  transform: scale(1.05);
+}
+
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #121320, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.hero-meta {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+}
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.hero-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag-chip {
+  padding: 6px 14px;
+  background: rgba(157, 80, 255, 0.2);
+  border: 1px solid rgba(157, 80, 255, 0.3);
+  border-radius: 20px;
+  color: #B28BFF;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* ?? Gestalt Mode Switcher Button */
+.btn-switch-mode {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 64px;
+  height: 64px;
+  background: #9D50FF;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(157, 80, 255, 0.6);
+  z-index: 110;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z'/%3E%3C/svg%3E");
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ?���?[CONTENT-BASE] */
+.sheet-content-base {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.content-date {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--kzm-primary);
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+.content-body {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+/* ?�� Media Grid */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.media-item {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ?���?Action Area */
+.sheet-actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+}
+
+.export-kzm {
+  background: var(--kzm-primary);
+  /* Cookie Bronze */
+  color: #fff;
+  box-shadow: 0 10px 30px var(--kzm-primary-glow);
+}
+
+.close-sheet {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-action:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.2);
+}
+
+/* Neon Pulse Animation */
+@keyframes detail-neon-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(157, 80, 255, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(157, 80, 255, 0.8);
+  }
+}
+
+.neon-pulse {
+  animation: detail-neon-pulse 2s infinite ease-in-out;
+}
+\n\n

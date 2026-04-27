@@ -1,0 +1,147 @@
+/* 🪐 KZM ACTION SHELF (v18.0 - Cookie Bronze Restoration) */
+/* ======================================================== */
+
+.kzm-selection-bar {
+    position: fixed;
+    bottom: 70px;
+    /* Directly above Navigator (40px + 52px + gap) */
+    left: 30%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 52px;
+    /* 뷰 전환 버튼의 높이 + 여백(5px)을 계산해서 값을 조정하세요 */
+    z-index: var(--z-action-bar, 35000);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    /* 🛡️ Prevent UI text scraping */
+    -webkit-user-select: none;
+}
+
+.kzm-selection-bar.hidden {
+    opacity: 0;
+    transform: translate(-50%, 40px);
+    pointer-events: none;
+}
+
+.selection-capsule-luxe {
+    width: 100%;
+    height: 100%;
+    background: var(--kzm-glass-bg);
+    backdrop-filter: var(--kzm-glass-blur);
+    border: 2px solid var(--kzm-primary);
+    border-radius: 40px;
+    box-shadow: 0 10px 40px var(--kzm-primary-glow);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
+}
+
+.selection-info {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--kzm-accent);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+.selection-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(210, 180, 140, 0.2);
+}
+
+.selection-actions {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.selection-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 6px 14px;
+    color: #fff;
+    font-size: 12px;
+    outline: none;
+}
+
+.selection-input:focus {
+    border-color: var(--kzm-primary);
+}
+
+.btn-sel-apply,
+.btn-sel-copy {
+    background: var(--kzm-primary);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px var(--kzm-primary-glow);
+}
+
+.btn-sel-copy {
+    background: rgba(157, 80, 255, 0.2);
+    border: 1px solid var(--kzm-primary);
+    color: var(--kzm-primary);
+    box-shadow: none;
+}
+
+.btn-sel-apply:hover,
+.btn-sel-copy:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+}
+
+.btn-sel-delete {
+    background: rgba(255, 75, 43, 0.1);
+    border: 1px solid var(--kzm-danger);
+    color: var(--kzm-danger);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-sel-delete:hover {
+    background: var(--kzm-danger);
+    color: #fff;
+}
+
+.btn-sel-cancel {
+    background: transparent;
+    border: 1px solid var(--kzm-glass-border);
+    color: var(--kzm-text-dim);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 🏷️ Mini selection corridor */
+.selection-mini-corridor {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    max-width: 150px;
+}
+
+.mini-pill {
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--kzm-accent);
+}

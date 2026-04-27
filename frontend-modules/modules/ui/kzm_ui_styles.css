@@ -1,0 +1,34 @@
+/* 🛡️ Kuzmo Premium Unified UI (v6.1 - Aliased Sovereignty) */
+
+/* 📦 [SOVEREIGN-IMPORT-CHAIN] Design System - Using Aliases for Root Stability */
+@import '@modules/ui/design-system/tokens.css';
+@import '@modules/ui/design-system/atoms.css';
+@import '@modules/ui/design-system/kzm_core.css';
+
+/* 🛰️ [DISTRIBUTED SOVEREIGNTY SYNC] */
+@import '@modules/map/kzm_map_engine_styles.css';
+@import '@modules/view-capsual-nav/kzm_panel_navigation.css';
+@import '@modules/archive/kzm_archive_sovereign.css';
+@import '@modules/action/kzm_action.css';
+
+/* 🛠️ Standard Utilities */
+@import '@modules/ui/styles/kzm_sheet.css';
+
+/* ⚓ [RE-LINKING DECENTRALIZED SOVEREIGNTY] */
+@import '@modules/dock/kzm_dock.css';
+
+/* Shared Animations & Atoms */
+.animate-in {
+    animation: slideInDock 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInDock {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.small-text {
+    font-size: 8px !important;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+}

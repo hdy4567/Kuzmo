@@ -1,0 +1,75 @@
+/* 디자인 토큰 체계 (V12.5 - Doc-Strict Aesthetic Restoration) */
+
+:root {
+  /* [CORE-COLORS] Calibrated tech-spec v14.0 - Gestalt Purple MASTER */
+  --kzm-primary: #9D50FF;
+  --kzm-primary-glow: rgba(157, 80, 255, 0.45);
+  --kzm-secondary: #B28BFF;
+  --kzm-accent: #B28BFF;
+
+  --kzm-bg: #0A0908;
+  --kzm-panel-bg: rgba(15, 14, 20, 0.9);
+  --kzm-glass-bg: rgba(15, 14, 20, 0.85);
+  --kzm-glass-border: rgba(157, 80, 255, 0.25);
+  --kzm-selection-bg: rgba(157, 80, 255, 0.4);
+
+  --kzm-text: #EAE0D5;
+  --kzm-text-dim: rgba(234, 224, 213, 0.6);
+  --kzm-success: #00ff88;
+  --kzm-danger: #ff4b2b;
+
+  --kzm-font: 'Outfit', 'Inter', system-ui, sans-serif;
+  --kzm-shadow: 0 16px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(157, 80, 255, 0.15);
+  --transition-luxe: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --kzm-glass-blur: blur(28px);
+
+  /* [Z-INDEX] Global Sovereignty Logic */
+  --z-map: 10;
+  --z-canvas: 200;
+  --z-side-panel: 9100;
+  --z-dock: 9200;
+  --z-top-nav: 25000;
+  --z-navbar: 11000;
+  --z-archive: 20000;
+  --z-modal: 30000;
+  --z-fab: 45000;
+  --z-toast: 50000;
+
+  --kzm-scale: 1.0;
+  --kzm-gap-base: 20px;
+  --kzm-radius-base: 16px;
+
+  /* [SOVEREIGN-MASTER-FILTER] Unified v14.0 (Fixed: Flash-Free, 20% Yellow-Reduction) */
+  --kzm-map-master-filter: invert(100%) hue-rotate(180deg) sepia(45%) brightness(75%) contrast(105%) saturate(2.2);
+  --kzm-map-overlay: rgba(10, 9, 8, 0.7);
+
+  /* [MAP-FEATURE-COLORS] Resultant Palette after Filter */
+  --kzm-map-ocean: #050508;
+  /* Deep Midnight Sea */
+  --kzm-map-land: #1A1714;
+  /* Deep Cocoa Terrain */
+  --kzm-map-mountain: #2C251F;
+  /* Rugged Highland */
+  --kzm-map-forest: #2E3B1B;
+  /* Boosted Forest Green (30% Stronger) */
+}
+
+::selection {
+  background: var(--kzm-selection-bg);
+  color: #fff;
+}
+
+
+
+.leaflet-tile-pane,
+.leaflet-tile,
+.leaflet-pane {
+  filter: var(--kzm-map-filter) !important;
+  will-change: filter;
+  /* 60FPS Optimization */
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
